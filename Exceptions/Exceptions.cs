@@ -2,6 +2,56 @@
 
 namespace Exceptions
 {
+    
+    [Serializable]
+    public class MatrixException : Exception
+    {
+        
+        /// <summary>  
+        /// Initializes a new instance of the <see cref="T:MyException"/> class
+        /// </summary>
+        public MatrixException()
+        {
+            
+        }
+
+        public override string Message
+        {
+            get
+            {
+                return "MatrixException";
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:MyException"/> class
+        /// </summary>
+        /// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
+        public MatrixException(string message) : base(message)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:MyException"/> class
+        /// </summary>
+        /// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
+        /// <param name="inner">The exception that is the cause of the current exception. </param>
+        public MatrixException(string message, Exception inner) : base(message, inner)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:MyException"/> class
+        /// </summary>
+        /// <param name="context">The contextual information about the source or destination.</param>
+        /// <param name="info">The object that holds the serialized object data.</param>
+        protected MatrixException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        {
+
+        }
+    }
     //TODO: Create custom exception "MatrixException"
 
     public class Matrix
@@ -111,14 +161,14 @@ namespace Exceptions
         /// <returns><see cref="Matrix"/></returns>
         public Matrix Add(Matrix matrix)
         {
+        
             if (matrix == null) throw new ArgumentNullException();
-            //TODO 
-            if (rows != matrix.rows || columns != matrix.columns) throw new Exception();
+            if (rows != matrix.rows || columns != matrix.columns) throw new MatrixException();
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    array[i, j] += matrix.array[i, j]; 
+                    array[i, j] += matrix.array[i, j];
                 }
             }
             return this;
@@ -134,8 +184,8 @@ namespace Exceptions
         public Matrix Subtract(Matrix matrix)
         {
             if (matrix == null) throw new ArgumentNullException();
-            //TODO 
-            if (rows != matrix.rows || columns != matrix.columns) throw new Exception();
+            if (rows != matrix.rows || columns != matrix.columns) throw new MatrixException();
+
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
@@ -155,9 +205,8 @@ namespace Exceptions
         /// <returns><see cref="Matrix"/></returns>
         public Matrix Multiply(Matrix matrix)
         {
-            if (matrix == null) throw new ArgumentNullException();
-            //TODO 
-            if (columns != matrix.rows) throw new Exception();
+            if (matrix == null) throw new ArgumentNullException(); 
+            if (columns != matrix.rows) throw new MatrixException();
 
             double[,] result = new double[rows, matrix.columns];
 
